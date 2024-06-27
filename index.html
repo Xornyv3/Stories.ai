@@ -90,12 +90,12 @@
          
               <div id="contact">
                  <h1>contact</h1> 
-                 <form>
-                     <input type="text" placeholder="name" required>
-                     <input type="email" placeholder="email" required><br>
-                     <textarea placeholder="leave a comment, a collaboration, or simply say hi" required rows="5"></textarea><br>
-                     <button class="btn_one">send</button>
-                 </form> 
+                 <form id="contact-form">
+                       <input type="text" placeholder="name" required>
+                       <input type="email" placeholder="email" required><br>
+                       <textarea placeholder="leave a comment, a collaboration, or simply say hi" required rows="5"></textarea><br>
+                       <button class="btn_one" type="submit">send</button>
+                </form>
                  <div id="details">
                     <a class="btn_social" target="_blank" href="https://github.com/Xornyv3"><i class="fab fa-github"></i></a>
                     <a class="btn_social" target="_blank" href="mailto:alaguiabdoullah@gmail.com"><i class="fas fa-at"></i></a>
@@ -108,5 +108,38 @@
         Designed By Abdoullah Alalgui - Copyright © 2024 - All rights reserved <br><br> <a href="https://imfunniee.github.io">Stories.ai</a>
     </div>
 <script src="index.js" type="text/javascript"></script>
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script type="text/javascript">
+   (function() {
+      emailjs.init('service_v0imnow'); // Replace with your EmailJS user ID
+   })();
+</script>
+<script type="text/javascript">
+   document.addEventListener('DOMContentLoaded', function() {
+      document.querySelector('form').addEventListener('submit', function(event) {
+         event.preventDefault();
+
+         // Get the form data
+         var name = document.querySelector('input[placeholder="name"]').value;
+         var email = document.querySelector('input[placeholder="email"]').value;
+         var message = document.querySelector('textarea').value;
+
+         // Send the email
+         emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+            from_name: name,
+            from_email: email,
+            message: message
+         })
+         .then(function(response) {
+            console.log('SUCCESS!', response.status, response.text);
+            alert('Message sent successfully!');
+         }, function(error) {
+            console.error('FAILED...', error);
+            alert('Failed to send message.');
+         });
+      });
+   });
+</script>
+
 </body>
 </html>
